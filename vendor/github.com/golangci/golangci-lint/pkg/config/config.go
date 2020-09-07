@@ -152,9 +152,13 @@ type Run struct {
 	UseDefaultSkipDirs bool     `mapstructure:"skip-dirs-use-default"`
 
 	AllowParallelRunners bool `mapstructure:"allow-parallel-runners"`
+	AllowSerialRunners   bool `mapstructure:"allow-serial-runners"`
 }
 
 type LintersSettings struct {
+	Gci struct {
+		LocalPrefixes string `mapstructure:"local-prefixes"`
+	}
 	Govet  GovetSettings
 	Golint struct {
 		MinConfidence float64 `mapstructure:"min-confidence"`
@@ -518,6 +522,10 @@ type Severity struct {
 	Rules         []SeverityRule `mapstructure:"rules"`
 }
 
+type Version struct {
+	Format string `mapstructure:"format"`
+}
+
 type Config struct {
 	Run Run
 
@@ -536,6 +544,7 @@ type Config struct {
 	Linters         Linters
 	Issues          Issues
 	Severity        Severity
+	Version         Version
 
 	InternalTest bool // Option is used only for testing golangci-lint code, don't use it
 }
